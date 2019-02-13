@@ -16,13 +16,13 @@
         <?php
 	    session_start();
             require_once("info.php");
-            if(isset($_POST['key']) && isset($_POST['value']) && isset($_POST['password'])){
+            if(isset($_POST['key']) && isset($_POST['value']) && isset($_POST['password'])){  /stc -> good
                 $key = htmlspecialchars($_POST['key']);
                 $value = htmlspecialchars($_POST['value']);
                 $password = htmlspecialchars($_POST['password']);
                 $result = add($key, $value, $password);
                 if($result != "OK"){ ?>
-            <div id="error" class="alert alert-danger" role="alert">Invalid password</div>    
+            <div id="error" class="alert alert-danger" role="alert">Invalid password</div>    //stc -> you did display a user message but in general I would look for the message nearer the form where I put in the data.
 		<?php } else { ?>
 		<div id="info" class="alert alert-info" role="alert">Added successfully!</div>
 		<?php
