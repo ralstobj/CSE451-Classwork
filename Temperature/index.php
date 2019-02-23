@@ -1,4 +1,3 @@
-
 <!---Bailey Ralton -->
 <!--<CSE 451-->
 <!-- REST PHP WEEK 3-->
@@ -10,7 +9,7 @@ require_once('cities.php');
 require_once('cache.php');
 if (isset($_GET['city'])) {
 	$cityId=htmlspecialchars($_GET['city']);
-//	$temperature = getCurrentTemperature($cityId);
+//	$temperature = getCurrentTemperature($cityId);  //stc why is this commented out?
 }
 
 ?>
@@ -26,7 +25,7 @@ if (isset($_GET['city'])) {
 <body>
 	<div class="container-fluid center-block">
 		<h1>Current Temperature Around The US</h1>
-		<?php if(isset($cityId)){?>
+		<?php if(isset($cityId)){?> //stc why php close and then php open?
 		<?php $temp = getRecentTemperature($cityId)?>
 		<h3> The temperature of <?php echo $cities[$cityId] ?> is <?php echo $temp['temperature'] ?>°F at <?php echo $temp['time'] ?></h3>
 		<?php } ?>
