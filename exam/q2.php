@@ -1,5 +1,9 @@
 <?php
 $mysqli = mysqli_connect("ceclnx01.cec.miamioh.edu", "exam","password","exam");
+//Bailey Ralston
+//CSE451
+//Exam1
+//2/28/19
 ?>
 <!DOCTYPE html>
 <html lang="en">
