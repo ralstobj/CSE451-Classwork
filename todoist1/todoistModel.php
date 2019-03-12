@@ -103,8 +103,30 @@ function createNewProject(){
                 error_log("no json");
                 exit;
         }
+	return getTasks($jbody['id']);
 
 }
-function addNewTask(){}
+function addNewTask($data){
+    global $client;
+    try {
+        $header = array("Authorization"=>"Bearer " . $_SESSION['token'], "Content-Type"=>"application/json");
+        $response = $client->request('post',"tasks",['headers'=>$header,GuzzleHttp\RequestOptions::JSON=> ['content' => $data, 'project_id'=>$_SESSION['id']]]);
+    } catch (Exception $e) {
+        print "There was an error adding project from todoist";
+        header("content-type: text/plain",true);
+        print_r($e);
+        $a=print_r($e,true);
+        error_log($a);
+        exit;
+    }
+
+        $body = (string) $response->getBody();
+        $jbody = json_decode($body);
+        if (!$jbody) {
+                error_log("no json");
+                exit;
+        }
+	
+}
 
 ?>
