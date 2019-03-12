@@ -1,4 +1,8 @@
 <?php
+//Bailey Ralston
+//CSE 451
+//Todoist model
+//3-12-19
 //this calls in all autoload packages installed via composer
 require __DIR__ . '/../vendor/autoload.php'; 
 require "key.php";
@@ -103,7 +107,8 @@ function createNewProject(){
                 error_log("no json");
                 exit;
         }
-	return getTasks($jbody['id']);
+	
+	return getTasks($jbody->id);
 
 }
 function addNewTask($data){

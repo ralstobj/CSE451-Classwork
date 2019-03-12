@@ -25,8 +25,10 @@ Here are the Tasks:
 <ul>
 <?php 
 $a=getProjects();
+if(isset($a)){
 foreach ($a as $i) {
   print "<li>" . $i . "</li>";
+}
 }
 
 ?>
