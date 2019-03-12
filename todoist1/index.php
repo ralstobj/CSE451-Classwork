@@ -8,7 +8,7 @@ if (isset($_REQUEST['logout'])) {
       }
 
 if (!isset($_SESSION['token'])) {
-  header("Location: https://todoist.com/oauth/authorize?client_id=$clientID&scope=data:read,data:delete&state=scott");
+  header("Location: https://todoist.com/oauth/authorize?client_id=$clientID&scope=data:read_write,data:delete&state=scott");
 }
 ?>
 <html>
@@ -27,6 +27,13 @@ foreach ($a as $i) {
 
 ?>
 </ul>
+<form>
+  <div>
+    <label for="taskInfo">Task</label>
+    <input type="text" class="form-control" id="taskInfo" name="taskInfo">
+  </div>
+  <button type="submit">Add Task</button>
+</form>
 </body>
 </html>
 
