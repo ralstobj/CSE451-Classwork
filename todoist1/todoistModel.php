@@ -1,4 +1,8 @@
 <?php
+//Bailey Ralston
+//CSE 451
+//Todoist model
+//3-12-19
 //this calls in all autoload packages installed via composer
 require __DIR__ . '/../vendor/autoload.php'; 
 require "key.php";
@@ -48,7 +52,7 @@ foreach($jbody as $i) {
   if($flag != 0){
       return  getTasks($flag);
   }else{
-      return createNewProject();
+     return createNewProject();
   }
 }
 
@@ -83,7 +87,51 @@ function getTasks($id){
 	return $tasks;
 
 }
-function createNewProject(){}
-function addNewTask(){}
+function createNewProject(){
+    global $client;
+    try {
+        $header = array("Authorization"=>"Bearer " . $_SESSION['token'], "Content-Type"=>"application/json");
+        $response = $client->request('post',"projects",['headers'=>$header,GuzzleHttp\RequestOptions::JSON=> ['name' => 'cse451Project1']]);
+    } catch (Exception $e) {
+        print "There was an error adding project from todoist";
+        header("content-type: text/plain",true);
+        print_r($e);
+        $a=print_r($e,true);
+        error_log($a);
+        exit;
+    }
+
+        $body = (string) $response->getBody();
+        $jbody = json_decode($body);
+        if (!$jbody) {
+                error_log("no json");
+                exit;
+        }
+	
+	return getTasks($jbody->id);
+
+}
+function addNewTask($data){
+    global $client;
+    try {
+        $header = array("Authorization"=>"Bearer " . $_SESSION['token'], "Content-Type"=>"application/json");
+        $response = $client->request('post',"tasks",['headers'=>$header,GuzzleHttp\RequestOptions::JSON=> ['content' => $data, 'project_id'=>$_SESSION['id']]]);
+    } catch (Exception $e) {
+        print "There was an error adding project from todoist";
+        header("content-type: text/plain",true);
+        print_r($e);
+        $a=print_r($e,true);
+        error_log($a);
+        exit;
+    }
+
+        $body = (string) $response->getBody();
+        $jbody = json_decode($body);
+        if (!$jbody) {
+                error_log("no json");
+                exit;
+        }
+	
+}
 
 ?>
