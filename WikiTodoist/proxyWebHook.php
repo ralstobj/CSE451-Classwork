@@ -1,5 +1,28 @@
 <?php
+session_start();
+/*
+ * Bailey Ralston
+ * Code to recieve todoist redirect.
+ * */
+require __DIR__ . '/../vendor/autoload.php'; 
 require "key.php";
+
+//bring guzzle client into code
+use GuzzleHttp\Client;
+
+//base uri -> it is important it end in /
+$uri = "https://ralstobj.451.csi.miamioh.edu/cse451-ralstobj-web/WikiTodoist/";
+
+
+//create a new client
+$client = new Client([
+    // Base URI is used with relative requests
+    'base_uri' => $uri,
+    // You can set any number of default request options.
+    'timeout'  => 2.0,
+]);
+
+
 $jsonData=array();
 try {
   $rawData = file_get_contents("php://input");
@@ -25,12 +48,17 @@ if (isset($headers['X-Todoist-Hmac-Sha256'])) {
 }
 
 if ($valid == true){
-$log  = "User: ".$jsonData['initiator']['full_name'].' | Event: '.$jsonData['event_name'].' | Content: '.
-	$jsonData['event_data']['content'].' | Project Id: '.$jsonData['event_data']['project_id'].' | '.
-	date("F j, Y, g:i a").PHP_EOL.
-        "-------------------------".PHP_EOL;
-file_put_contents('todoist.log', $log, FILE_APPEND);
-
+try {
+        $header = array("Content-Type"=>"application/json");
+        $response = $client->request('post',"log.php",['headers'=>$header,GuzzleHttp\RequestOptions::JSON=>$jsonData]);
+    } catch (Exception $e) {
+        print "There was an error sending data";
+        header("content-type: text/plain",true);
+ 	print_r($e);
+  	$a=print_r($e,true);
+  	error_log($a);
+  	exit;
+    }
 }
-
 ?>
+
