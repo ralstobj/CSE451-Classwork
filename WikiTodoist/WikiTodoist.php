@@ -42,4 +42,9 @@ foreach ($arr as $article) { ?>
 <?php } ?>
 </body>
 </html>
-
+<?php
+$log  = "User: ".$_SESSION['tokenWiki'].' | Event: Page Loaded | '.
+	date("F j, Y, g:i a").PHP_EOL.
+        "-------------------------".PHP_EOL;
+file_put_contents('WikiTodist.log', $log, FILE_APPEND);
+?>
