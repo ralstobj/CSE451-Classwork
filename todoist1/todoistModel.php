@@ -41,7 +41,7 @@ if (!$jbody) {
   error_log("no json");
   exit;
 }
-
+$flag = 0;
 foreach($jbody as $i) {
     $projectName = $i->name;
     if($projectName == "cse451Project1"){
