@@ -41,7 +41,7 @@ function generatePage($articles){
 function publish(){
 	global $s3Client;
 	$bucket = 'campbest-451-s19-wikipedia';
-	$keyname = 'temp/index.html';
+	$keyname = 'ralstobj/index.html';
 	$contentType = "text/html";
 	// Prepare the upload parameters.
 	$uploader = new MultipartUploader($s3Client, 'index.html', [
